@@ -1,5 +1,6 @@
 # Laravel Pro Server
 
+![Master](https://github.com/laravel-pro/forum-server/workflows/Laravel/badge.svg?branch=master)
 
 ### 开始开发
 
