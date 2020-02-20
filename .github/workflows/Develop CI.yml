@@ -40,7 +40,7 @@ jobs:
       - name: Publish Docker
         uses: elgohr/Publish-Docker-Github-Action@2.12
         with:
-          name: laravel-pro/forum-server/server-dev:${{ git rev-list --all --count }}
+          name: laravel-pro/forum-server/server-dev:$(git rev-list --all --count)
           username: ${{ github.actor }}
           password: ${{ github.token }}
           registry: docker.pkg.github.com
