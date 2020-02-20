@@ -29,7 +29,6 @@ jobs:
   build-image:
     name: Build Image
 
-    if: ${{ github.ref == 'master' }}
     needs: unit-tests
 
     runs-on: ubuntu-latest
