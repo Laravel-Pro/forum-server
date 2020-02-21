@@ -38,8 +38,10 @@ jobs:
         run: composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Publish Docker
         uses: elgohr/Publish-Docker-Github-Action@2.12
+        env:
+          BUILD_ID: $(git rev-list --all --count)
         with:
-          name: laravel-pro/forum-server/server-dev:$(git rev-list --all --count)
+          name: laravel-pro/forum-server/server-dev:${{ BUILD_ID }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
           registry: docker.pkg.github.com
