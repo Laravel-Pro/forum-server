@@ -36,12 +36,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Dependencies
         run: composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-      - name: Get Build ID
-        run: export BUILD_ID=$(git rev-list --all --count)
       - name: Publish Docker
-        uses: elgohr/Publish-Docker-Github-Action@2.12
-        with:
-          name: laravel-pro/forum-server/server-dev:${{ BUILD_ID }}
-          username: ${{ github.actor }}
-          password: ${{ github.token }}
-          registry: docker.pkg.github.com
+        run: |
+          echo ${{ github.token }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
+          IMAGE_NAME="laravel-pro/forum-server/server-dev:$(git rev-list --all --count)"
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
