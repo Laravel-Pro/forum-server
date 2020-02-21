@@ -39,6 +39,6 @@ jobs:
       - name: Publish Docker
         run: |
           echo ${{ github.token }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
-          IMAGE_NAME="docker.pkg.github.com/laravel-pro/forum-server/server-dev:$(git rev-list --all --count)"
+          IMAGE_NAME="docker.pkg.github.com/laravel-pro/forum-server/server-dev:$(date +%Y%m%d%H%M%S)"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
