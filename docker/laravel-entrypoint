@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# change dir permission
+chmod -R 0777 storage bootstrap/cache
+
+# cache config
+php artisan config:cache
+
+# cache route
+#php artisan route:cache
+
+# first arg is `-f` or `--some-option`
+if [ -z "$1" ] || [ "${1#-}" != "$1" ]; then
+    set -- apache2-foreground "$@"
+fi
+
+exec "$@"

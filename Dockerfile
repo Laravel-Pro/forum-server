@@ -14,3 +14,7 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 COPY docker/opcache.ini $PHP_INI_DIR/conf.d/
 
 COPY . /var/www/html/
+
+RUN ln -s /var/www/html/docker/laravel-entrypoint /usr/local/bin/
+
+ENTRYPOINT ["laravel-entrypoint"]
