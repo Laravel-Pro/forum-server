@@ -2,7 +2,7 @@
 set -e
 
 # change dir permission
-chmod -R 0777 storage bootstrap/cache
+chmod -R 0777 "$FORUM_PROJECT_ROOT/storage" "$FORUM_PROJECT_ROOT/bootstrap/cache"
 
 # cache config
 php artisan config:cache

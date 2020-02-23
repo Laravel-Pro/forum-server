@@ -2,19 +2,26 @@ FROM php:7.4-apache
 
 RUN docker-php-ext-install opcache pdo_mysql
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV FORUM_PROJECT_ROOT /var/www/html/forum
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# site configure file
+COPY ./docker/laravel-pro.conf /etc/apache2/sites-available/
 
 # Override with custom opcache settings
 COPY docker/opcache.ini $PHP_INI_DIR/conf.d/
 
-COPY . /var/www/html/
+# Copy entrypoint script
+COPY docker/laravel-entrypoint /usr/local/bin/
 
-RUN ln -s /var/www/html/docker/laravel-entrypoint /usr/local/bin/
+RUN a2dissite 000-default.conf \
+    && a2ensite laravel-pro.conf \
+    && a2enmod rewrite
+
+WORKDIR $FORUM_PROJECT_ROOT
+
+COPY . $FORUM_PROJECT_ROOT
 
 ENTRYPOINT ["laravel-entrypoint"]
