@@ -16,9 +16,9 @@ class StatusController extends Controller
     {
         try {
             DB::connection()->getPdo();
-            return response()->json(['status' => 'ok']);
+            return response()->json(['db' => 'ok']);
         } catch (\Exception $exception) {
-            return response()->json(['status' => 'error']);
+            return response()->json(['db' => 'error']);
         }
     }
 }
