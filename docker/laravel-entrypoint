@@ -10,6 +10,8 @@ php artisan config:cache
 # cache route
 #php artisan route:cache
 
+php artisan migrate --force --step
+
 # first arg is `-f` or `--some-option`
 if [ -z "$1" ] || [ "${1#-}" != "$1" ]; then
     set -- apache2-foreground "$@"
