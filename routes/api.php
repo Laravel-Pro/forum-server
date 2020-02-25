@@ -17,4 +17,5 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('version', 'VersionController@index');
+Route::get('status/version', 'StatusController@version');
+Route::get('status/db', 'StatusController@db');
