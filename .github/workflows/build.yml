@@ -1,4 +1,4 @@
-name: Developing CI
+name: Test & Build
 
 on: [push]
 
