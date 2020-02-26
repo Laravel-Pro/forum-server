@@ -9,7 +9,7 @@ class StatusController extends Controller
 {
     public function version()
     {
-        return response()->json(['version' => 'this is debug version']);
+        return response()->json(['version' => 'dev']);
     }
 
     public function db()
