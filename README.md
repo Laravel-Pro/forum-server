@@ -1,6 +1,6 @@
 # Laravel Pro Server
 
-![Test](https://github.com/laravel-pro/forum-server/workflows/Test/badge.svg?branch=master)
+![Test & Build](https://github.com/laravel-pro/forum-server/workflows/Test%20&%20Build/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=laravel-pro_forum-server&metric=alert_status)](https://sonarcloud.io/dashboard?id=laravel-pro_forum-server)
 
 ### 开始开发
