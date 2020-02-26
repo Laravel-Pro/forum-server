@@ -34,11 +34,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Image Tag
+        run: |
+          IMAGE_NAME="docker.pkg.github.com/laravel-pro/forum-web/pro-server"
+          TAG="$(date +%Y%m%d%H%M%S)"
+          echo "::set-env name=IMAGE_TAG::$IMAGE_NAME:$TAG"
       - name: Install Dependencies
         run: composer install -q --no-dev --optimize-autoloader --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Publish Docker
         run: |
           echo ${{ github.token }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
-          IMAGE_NAME="docker.pkg.github.com/laravel-pro/forum-server/pro-server:$(date +%Y%m%d%H%M%S)"
-          docker build -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
+          docker build -t $IMAGE_TAG .
+          docker push $IMAGE_TAG
+      - name: Deploy to dev server
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.dev_server_host }}
+            username: root
+            key: ${{ secrets.dev_server_key }}
+            envs: IMAGE_TAG
+            script: |
+              cd ~/laravel-pro
+              sed -i "s#docker.pkg.github.com/laravel-pro/forum-web/pro-server:[0-9]*#$IMAGE_TAG#g" docker-compose.yml
+              docker-compose up -d --no-deps pro-server
+              docker image prune --all --force --filter "until=72h"
+
