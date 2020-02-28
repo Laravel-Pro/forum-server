@@ -7,7 +7,6 @@
         "laravel",
         "forum"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
