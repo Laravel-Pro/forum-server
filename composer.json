@@ -1,10 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel-pro/forum-server",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The Laravel Pro forum server.",
+    "version": "0.1.0",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "forum"
     ],
     "license": "MIT",
     "require": {
