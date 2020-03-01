@@ -8,7 +8,7 @@
         "forum"
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0"
