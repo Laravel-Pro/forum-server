@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Channel;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,7 @@ use Illuminate\Http\Request;
 
 Route::get('status/version', 'StatusController@version');
 Route::get('status/db', 'StatusController@db');
+
+Route::get('channels', function () {
+    return Channel::latest()->get();
+});
