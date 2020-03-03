@@ -1,11 +1,6 @@
-FROM php:7.4-apache
-
-RUN docker-php-ext-install opcache pdo_mysql
+FROM wkan/php-apache:7.4
 
 ENV FORUM_PROJECT_ROOT /var/www/html/forum
-
-# Use the default production configuration
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # site configure file
 COPY ./docker/laravel-pro.conf /etc/apache2/sites-available/
