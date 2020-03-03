@@ -39,6 +39,7 @@ jobs:
           IMAGE_NAME="docker.pkg.github.com/laravel-pro/forum-server/pro-server"
           TAG="$(date +%Y%m%d%H%M%S)"
           echo "::set-env name=IMAGE_TAG::$IMAGE_NAME:$TAG"
+          echo "::set-env name=IMAGE_TAG_LATEST::$IMAGE_NAME:latest"
       - name: Install Dependencies
         run: composer install -q --no-dev --optimize-autoloader --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Publish Docker
@@ -46,6 +47,8 @@ jobs:
           echo ${{ github.token }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
           docker build -t $IMAGE_TAG .
           docker push $IMAGE_TAG
+          docker tag $IMAGE_TAG $IMAGE_TAG_LATEST
+          docker push $IMAGE_TAG_LATEST
       - name: Deploy to dev server
         uses: appleboy/ssh-action@master
         with:
