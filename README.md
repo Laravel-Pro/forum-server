@@ -41,17 +41,4 @@ vendor/bin/phpunit --testsuite Feature
 vendor/bin/phpunit --filter the_test_class_or_method_name
 ```
 
-### 为E2E测试启动服务
-
-```
-# 每次开始前建议先运行 pull 来获取最新的 image
-docker-compose -f docker-composer-e2e.yml pull
-
-docker-compose -f docker-composer-e2e.yml up --force-recreate --renew-anon-volumes
-
-# --renew-anon-volumes 参数防止mysql重用原来的数据
-# 运行后可能需要下面的命令清除过多的volumes
-docker volume prune
-```
-
 **提交代码后，系统会自动集成**
