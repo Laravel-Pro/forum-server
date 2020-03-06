@@ -28,6 +28,9 @@ php artisan migrate
 #### 运行测试
 
 ```
+# 测试前复制 .env.testing 文件，确认其中的数据库配置
+cp .env.testing.example .env.testing
+
 # 运行所有
 vendor/bin/phpunit
 
