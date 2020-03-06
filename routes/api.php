@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Channel;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,8 @@ Route::get('status/db', 'StatusController@db');
 
 Route::get('channels', function () {
     return Channel::latest()->get();
+});
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('register', 'Auth\RegisterController@register');
 });
