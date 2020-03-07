@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Services\AvatarService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -19,6 +21,13 @@ class RegisterTest extends TestCase
             'email' => $faker->unique()->safeEmail,
             'password' => $faker->password(8, 100),
         ];
+
+        // mock AvatarService
+        $this->partialMock(AvatarService::class, function (MockInterface $mock) use ($user) {
+            $mock->shouldReceive('getUserAvatar')
+                ->with($user['email'])
+                ->andReturn('fake-avatar.png');
+        });
 
         $response = $this->postJson('api/auth/register', $user);
 

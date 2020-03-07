@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Services\AvatarService;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -82,7 +82,10 @@ class RegisterController extends Controller
     {
         $email = $data['email'];
 
-        $avatar = $this->getUserAvatar($email);
+        /** @var AvatarService $avatarService */
+        $avatarService = app()->make(AvatarService::class);
+
+        $avatar = $avatarService->getUserAvatar($email);
 
         /** @var User $user */
         $user = User::query()->create([
@@ -95,19 +98,5 @@ class RegisterController extends Controller
         ]);
 
         return $user;
-    }
-
-    protected function getUserAvatar(string $email)
-    {
-        $md5 = md5(strtolower(trim($email)));
-
-        $imageUrl = "http://www.gravatar.com/avatar/{$md5}?default=retro&r=g&s=200";
-
-        $avatarPath = substr($md5, 0, 2).'/'.$md5.'.png';
-        $image = file_get_contents($imageUrl);
-
-        $path = Storage::disk('avatar')->put($avatarPath, $image);
-
-        return $path ?: 'default-avatar.png';
     }
 }
