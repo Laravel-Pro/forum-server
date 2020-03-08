@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -28,6 +30,8 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected $username = 'email';
+
     /**
      * Create a new controller instance.
      *
@@ -36,5 +40,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->verifyUsername();
+    }
+
+    /**
+     * 确认用户使用的是邮箱还是用户名登录
+     */
+    protected function verifyUsername()
+    {
+        $loginAs = request()->input('loginAs');
+        $type = filter_var($loginAs, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        request()->merge([$type => $loginAs]);
+
+        $this->username = $type;
+    }
+
+    public function username()
+    {
+        return $this->username;
+    }
+
+    public function authenticated(Request $request, $user)
+    {
+        return JsonResponse::create($user);
     }
 }

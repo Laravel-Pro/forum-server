@@ -28,6 +28,7 @@ Route::get('channels', function () {
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\RegisterController@register');
+    Route::post('login', 'Auth\LoginController@login');
 });
 
 Route::get('user/self', 'UserController@self');
