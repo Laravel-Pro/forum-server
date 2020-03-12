@@ -50,6 +50,9 @@ class RegisterController extends Controller
             'username' => ['required', 'min:4', 'max:40', 'regex:/^[A-Za-z0-9][A-Za-z0-9_-]{3,39}$/', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:100'],
+        ], [
+            'username.unique' => '用户名已被使用',
+            'email.unique' => '邮箱已被使用',
         ]);
     }
 
