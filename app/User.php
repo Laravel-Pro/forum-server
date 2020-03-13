@@ -26,8 +26,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarUrlAttribute($avatar)
+    public function getAvatarUrlAttribute()
     {
-        return Storage::disk('avatar')->url($avatar);
+        return Storage::disk('avatar')->url($this->attributes['avatar']);
     }
 }
