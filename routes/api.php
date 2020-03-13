@@ -23,6 +23,7 @@ Route::get('status/version', 'StatusController@version');
 Route::get('status/db', 'StatusController@db');
 
 Route::get('channels', 'ChannelController@index');
+Route::get('threads', 'ThreadController@index');
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\RegisterController@register');
