@@ -18,10 +18,8 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Channel::class, function (Faker $faker) {
-    $name = $faker->name;
-
     return [
-        'name' => $name,
-        'slug' => $name,
+        'name' => $faker->name,
+        'slug' => $faker->slug(1),
     ];
 });
