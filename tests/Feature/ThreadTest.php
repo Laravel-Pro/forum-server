@@ -32,6 +32,6 @@ class ThreadTest extends TestCase
                 'links',
                 'meta',
             ])
-            ->assertJson(['data' => $channels->toArray()]);
+            ->assertJson(['data' => $channels->makeHidden('rendered')->toArray()]);
     }
 }
