@@ -24,7 +24,6 @@ class ThreadTest extends TestCase
                     'author' => ['id', 'name', 'username'],
                     'channel' => ['id', 'name', 'slug'],
                     'title',
-                    'rendered',
                     'replies_count',
                     'activity_at',
                     'updated_at',

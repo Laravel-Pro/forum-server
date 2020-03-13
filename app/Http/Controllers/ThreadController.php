@@ -16,6 +16,11 @@ class ThreadController extends Controller
     public function index()
     {
         $channels = Thread::query()
+            ->select([
+                'id', 'author_id', 'channel_id',
+                'title', 'replies_count',
+                'activity_at', 'created_at', 'updated_at'
+            ])
             ->with([
                 'author:id,name,username',
                 'channel:id,name,slug',
