@@ -14,6 +14,9 @@ php artisan config:cache
 # cache route
 #php artisan route:cache
 
+# link avatar
+ln -s "$PWD/storage/app/avatar" "$PWD/public/avatar"
+
 php artisan migrate --force --step
 
 # first arg is `-f` or `--some-option`
