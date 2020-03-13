@@ -22,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('status/version', 'StatusController@version');
 Route::get('status/db', 'StatusController@db');
 
-Route::get('channels', function () {
-    return Channel::latest()->get();
-});
+Route::get('channels', 'ChannelController@index');
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\RegisterController@register');
