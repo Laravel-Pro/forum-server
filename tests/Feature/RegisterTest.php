@@ -36,7 +36,7 @@ class RegisterTest extends TestCase
             'email' => $user['email'],
         ]);
 
-        $this->assertDatabaseHas('users', $response->json());
+        $this->assertDatabaseHas('users', array_intersect_key($user, ['username', 'email']));
     }
 
     /** @test */
