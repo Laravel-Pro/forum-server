@@ -22,7 +22,7 @@ class ThreadController extends Controller
                 'activity_at', 'created_at', 'updated_at'
             ])
             ->with([
-                'author:id,name,username',
+                'author:id,name,username,avatar',
                 'channel:id,name,slug',
             ])
             ->orderBy('activity_at', 'DESC')
