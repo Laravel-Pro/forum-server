@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Channel;
 use App\Thread;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_user_can_view_channel_list()
     {
-        $channels = factory(Thread::class, 1)->create();
+        $thread = factory(Thread::class, 1)->create();
 
         $response = $this->getJson('/api/threads');
 
@@ -32,6 +33,21 @@ class ThreadTest extends TestCase
                 'links',
                 'meta',
             ])
-            ->assertJson(['data' => $channels->makeHidden('rendered')->toArray()]);
+            ->assertJson(['data' => $thread->makeHidden('rendered')->toArray()]);
+    }
+
+    /** @test */
+    public function thread_can_be_filtered_by_channel()
+    {
+        $theChannel = factory(Channel::class)->create();
+        $otherChannel = factory(Channel::class)->create();
+
+        $thread = factory(Thread::class)->create(['channel_id' => $theChannel->id]);
+        $threadNotInTheChannel = factory(Thread::class)->create(['channel_id' => $otherChannel->id]);
+
+        $response = $this->getJson('/api/threads?channel=' . $theChannel->slug);
+
+        $response->assertSee($thread->title)
+            ->assertDontSee($threadNotInTheChannel->title);
     }
 }

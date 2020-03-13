@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Channel;
 use App\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -11,11 +12,21 @@ class ThreadController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResource
      */
-    public function index()
+    public function index(Request $request)
     {
-        $channels = Thread::query()
+        $channel_slug = $request->input('channel');
+
+        $query = Thread::query();
+
+        if ($channel_slug) {
+            $channel = Channel::query()->where('slug', '=', $channel_slug)->firstOrFail();
+            $query->where('channel_id', '=', $channel->id);
+        }
+
+        $threads = $query
             ->select([
                 'id', 'author_id', 'channel_id',
                 'title', 'replies_count',
@@ -28,7 +39,7 @@ class ThreadController extends Controller
             ->orderBy('activity_at', 'DESC')
             ->simplePaginate();
 
-        return JsonResource::collection($channels);
+        return JsonResource::collection($threads);
     }
 
     /**
