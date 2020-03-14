@@ -12,7 +12,7 @@ class Thread extends Model
         'replies_count', 'activity_at',
     ];
 
-    protected $hidden = ['body'];
+    protected $hidden = ['rendered'];
 
     protected $casts = [
         'activity_at' => 'datetime',

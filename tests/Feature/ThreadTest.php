@@ -14,7 +14,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_user_can_view_channel_list()
     {
-        $thread = factory(Thread::class, 1)->create();
+        $thread = factory(Thread::class, 2)->create();
 
         $response = $this->getJson('/api/threads');
 
@@ -33,7 +33,7 @@ class ThreadTest extends TestCase
                 'links',
                 'meta',
             ])
-            ->assertJson(['data' => $thread->makeHidden('rendered')->toArray()]);
+            ->assertJson(['data' => $thread->makeHidden('body')->toArray()]);
     }
 
     /** @test */
