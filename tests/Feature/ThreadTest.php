@@ -45,9 +45,20 @@ class ThreadTest extends TestCase
         $thread = factory(Thread::class)->create(['channel_id' => $theChannel->id]);
         $threadNotInTheChannel = factory(Thread::class)->create(['channel_id' => $otherChannel->id]);
 
-        $response = $this->getJson('/api/threads?channel=' . $theChannel->slug);
+        $response = $this->getJson('/api/threads?channel='.$theChannel->slug);
 
         $response->assertSee($thread->title)
             ->assertDontSee($threadNotInTheChannel->title);
+    }
+
+    /** @test */
+    public function a_user_can_view_thread_detail()
+    {
+        $thread = factory(Thread::class)->create();
+
+        $response = $this->getJson(('/api/threads/'.$thread->id));
+
+        $response->assertSuccessful()
+            ->assertJson(['data' => $thread->toArray()]);
     }
 }

@@ -57,11 +57,16 @@ class ThreadController extends Controller
      * Display the specified resource.
      *
      * @param Thread $thread
-     * @return \Illuminate\Http\Response
+     * @return JsonResource
      */
     public function show(Thread $thread)
     {
-        // TODO
+        $thread->load([
+            'author:id,name,username,avatar',
+            'channel:id,name,slug',
+        ]);
+
+        return JsonResource::make($thread);
     }
 
     /**
