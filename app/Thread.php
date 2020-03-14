@@ -18,6 +18,8 @@ class Thread extends Model
         'activity_at' => 'datetime',
     ];
 
+    protected $perPage = 50;
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');

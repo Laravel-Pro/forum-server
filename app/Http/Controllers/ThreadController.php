@@ -37,7 +37,7 @@ class ThreadController extends Controller
                 'channel:id,name,slug',
             ])
             ->orderBy('activity_at', 'DESC')
-            ->simplePaginate();
+            ->paginate();
 
         return JsonResource::collection($threads);
     }
