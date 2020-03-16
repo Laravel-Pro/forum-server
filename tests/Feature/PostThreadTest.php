@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Channel;
 use App\Thread;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,7 +28,6 @@ class PostThreadTest extends TestCase
         $this->be($user);
 
         $threadData = $this->createThreadData();
-
         $response = $this->postJson('/api/threads', $threadData);
         $response->assertSuccessful();
         $this->assertDatabaseHas('threads', $threadData);
@@ -83,7 +83,7 @@ class PostThreadTest extends TestCase
 
     protected function createThreadData()
     {
-        $channel = factory(Thread::class)->create();
+        $channel = factory(Channel::class)->create();
 
         return [
             'channel_id' => $channel->id,
