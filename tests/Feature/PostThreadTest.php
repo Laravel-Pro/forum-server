@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Channel;
-use App\Thread;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -28,8 +27,8 @@ class PostThreadTest extends TestCase
         $this->be($user);
 
         $threadData = $this->createThreadData();
-        $response = $this->postJson('/api/threads', $threadData);
-        dump($response);
+        $this->postJson('/api/threads', $threadData);
+
         $this->assertDatabaseHas('threads', $threadData);
     }
 

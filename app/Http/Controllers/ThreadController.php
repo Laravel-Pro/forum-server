@@ -63,6 +63,7 @@ class ThreadController extends Controller
 
         $input['rendered'] = '';
         $input['author_id'] = auth()->id();
+        $input['activity_at'] = now();
 
         $thread = Thread::query()->create($input);
 
