@@ -28,7 +28,8 @@ class PostThreadTest extends TestCase
         $this->be($user);
 
         $threadData = $this->createThreadData();
-        $this->postJson('/api/threads', $threadData);
+        $response = $this->postJson('/api/threads', $threadData);
+        dump($response);
         $this->assertDatabaseHas('threads', $threadData);
     }
 
