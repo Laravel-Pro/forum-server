@@ -9,6 +9,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ThreadController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['store', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,11 +51,22 @@ class ThreadController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResource
      */
     public function store(Request $request)
     {
-        // TODO
+        $input = $this->validate($request, [
+            'channel_id' => ['required', 'exists:channels,id'],
+            'title' => ['required'],
+            'body' => ['required'],
+        ]);
+
+        $input['rendered'] = '';
+        $input['author_id'] = auth()->id();
+
+        $thread = Thread::query()->create($input);
+
+        return JsonResource::make($thread);
     }
 
     /**

@@ -25,6 +25,7 @@ Route::get('status/db', 'StatusController@db');
 Route::get('channels', 'ChannelController@index');
 Route::get('threads', 'ThreadController@index');
 Route::get('threads/{thread}', 'ThreadController@show');
+Route::post('threads', 'ThreadController@store');
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\RegisterController@register');
