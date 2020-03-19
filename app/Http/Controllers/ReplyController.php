@@ -15,6 +15,7 @@ class ReplyController extends Controller
             ->with([
                 'owner:id,name,username,avatar',
             ])
+            ->orderBy('id')
             ->paginate();
 
         return JsonResource::collection($replies);

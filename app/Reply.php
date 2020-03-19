@@ -8,6 +8,8 @@ class Reply extends Model
 {
     protected $fillable = ['thread_id', 'user_id', 'body'];
 
+    protected $perPage = 100;
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
