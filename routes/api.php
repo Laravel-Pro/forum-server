@@ -27,6 +27,8 @@ Route::get('threads', 'ThreadController@index');
 Route::get('threads/{thread}', 'ThreadController@show');
 Route::post('threads', 'ThreadController@store');
 
+Route::post('threads/{thread}/replies', 'ReplyController@store');
+
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('login', 'Auth\LoginController@login');

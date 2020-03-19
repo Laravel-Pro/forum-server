@@ -81,6 +81,8 @@ class ThreadController extends Controller
         $thread->load([
             'author:id,name,username,avatar',
             'channel:id,name,slug',
+            'replies',
+            'replies.owner:id,name,username,avatar',
         ]);
 
         return JsonResource::make($thread);
