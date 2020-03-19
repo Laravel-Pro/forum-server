@@ -9,6 +9,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReplyController extends Controller
 {
+    public function index(Thread $thread)
+    {
+        $replies = $thread->replies()
+            ->with([
+                'owner:id,name,username,avatar',
+            ])
+            ->paginate();
+
+        return JsonResource::collection($replies);
+    }
+
     public function store(Thread $thread, Request $request)
     {
         $input = $this->validate($request, [

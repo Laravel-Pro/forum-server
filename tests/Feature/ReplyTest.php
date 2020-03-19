@@ -19,15 +19,15 @@ class ReplyTest extends TestCase
 
         $thread = factory(Thread::class)->create();
 
-        $replies = factory(Reply::class, 1)->create([
+        $replies = factory(Reply::class, 10)->create([
             'thread_id' => $thread->id,
         ]);
 
         $replies->load(['owner:id,name,username,avatar']);
 
-        $this->getJson("/api/threads/{$thread->id}")
-            ->assertJsonPath('data.replies', $replies->toArray())
-            ->assertJsonPath('data.replies.0.owner', $replies->first()->owner->toArray());
+        $this->getJson("/api/threads/{$thread->id}/replies")
+            ->assertJsonPath('data', $replies->toArray())
+            ->assertJsonPath('data.0.owner', $replies->first()->owner->toArray());
     }
 
     /** @test */
