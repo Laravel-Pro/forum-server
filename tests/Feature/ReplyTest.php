@@ -45,6 +45,9 @@ class ReplyTest extends TestCase
 
         $this->assertDatabaseHas('replies', ['body' => $reply->body]);
         $this->assertEquals(1, $thread->replies()->count());
+
+        $thread->refresh();
+        $this->assertEquals($thread->replies()->count(), $thread->replies_count);
     }
 
     /** @test */

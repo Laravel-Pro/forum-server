@@ -9,7 +9,7 @@ class Thread extends Model
     protected $fillable = [
         'author_id', 'channel_id',
         'title', 'body', 'rendered',
-        'replies_count', 'activity_at',
+        'activity_at',
     ];
 
     protected $hidden = ['rendered'];

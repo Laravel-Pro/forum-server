@@ -32,6 +32,9 @@ class ReplyController extends Controller
             'user_id' => auth()->id(),
         ]);
 
+        $thread->replies_count = $thread->replies()->count();
+        $thread->save();
+
         return JsonResource::make($reply);
     }
 
