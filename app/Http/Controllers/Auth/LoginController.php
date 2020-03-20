@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Psy\Util\Json;
 
 class LoginController extends Controller
@@ -64,6 +65,13 @@ class LoginController extends Controller
     public function authenticated(Request $request, $user)
     {
         return JsonResponse::create($user);
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => ['登录凭证无效'],
+        ]);
     }
 
     protected function loggedOut(Request $request)
